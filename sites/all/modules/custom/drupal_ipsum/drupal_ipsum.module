@@ -1,0 +1,365 @@
+<?php
+
+/**
+ * @file Drupal Ipsum module
+ */
+
+/**
+ * Define constants for text type
+ */
+define('DRUPAL_IPSUM_TYPE_WORD', 0);
+define('DRUPAL_IPSUM_TYPE_SENTENCE', 1);
+define('DRUPAL_IPSUM_TYPE_PARAGRAPH', 2);
+
+/**
+ * Define contants for starting text
+ */
+define('DRUPAL_IPSUM_START_ANY', 0);
+define('DRUPAL_IPSUM_START_LOREM', 1);
+define('DRUPAL_IPSUM_START_DRUPAL', 2);
+
+/**
+ * Implements hook_init().
+ */
+function drupal_ipsum_init() {
+  // ideally we would add the includes only on the results page but since this is a small site
+  // we can benefit from having just one css file to cache with no conditions
+  drupal_add_css(drupal_get_path('module', 'drupal_ipsum') . '/css/drupal_ipsum.css');
+  drupal_add_js(drupal_get_path('module', 'drupal_ipsum') . '/js/drupal_ipsum.js');
+}
+
+/**
+ * Implements hook_permission().
+ */
+function drupal_ipsum_permission() {
+  return array(
+    'use drupal_ipsum' => array(
+      'title' => t('Use Drupal Ipsum'),
+      'description' => t('Generete Drupal Ipsum filler text'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function drupal_ipsum_menu() {
+  $items = array();
+
+  $items['about'] = array(
+    'title' => 'About Drupal Ipsum',
+    'page callback' => 'theme',
+    'page arguments' => array('drupal_ipsum_about'),
+    'access arguments' => array('access content'),
+    'menu_name' => 'main-menu',
+    'weight' => 1,
+  );
+  
+  $items['generate'] = array(
+    'title' => 'Generate Drupal Ipsum text',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('drupal_ipsum_generate_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('use drupal_ipsum'),
+    'menu_name' => 'main-menu',
+    'weight' => 0,
+  );
+  
+  $items['generate/%'] = array(
+    'title' => 'Generated Drupal Ipsum text',
+    'page callback' => '_drupal_ipsum_show_results',
+    'page arguments' => array(1),
+    'access callback' => 'user_access',
+    'access arguments' => array('use drupal_ipsum'),
+    'type' => MENU_CALLBACK,
+  );
+
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function drupal_ipsum_theme($existing, $type, $theme, $path) {
+  return array(
+    'drupal_ipsum_results' => array(
+      'template' => 'templates/drupal_ipsum_results',
+      'variables' => array('drupal_ipsum_text' => NULL),
+    ),
+    'drupal_ipsum_about' => array(
+      'template' => 'templates/drupal_ipsum_about',
+    ),
+  );
+}
+
+/**
+ * Page callback
+ * 
+ * @see drupal_ipsum_menu().
+ */
+function _drupal_ipsum_show_results($hash) {
+  $hash = unserialize(base64_decode($hash));
+  extract($hash);
+  
+  if (!isset($type) || !isset($quantity) || !isset($start)) {
+    drupal_goto('generate');
+    exit;
+  }
+  
+  $text = _drupal_ipsum_generate($quantity, $type, $start);
+  return array(
+    '#theme' => 'drupal_ipsum_results',
+    '#drupal_ipsum_text' => $text,
+  );
+}
+
+/**
+ * Form callback
+ * 
+ * @see drupal_ipsum_menu().
+ */
+function drupal_ipsum_generate_form() {
+  $form = array();
+  
+  $form['drupal_ipsum_text_type'] = array(
+    '#type' => 'radios',
+    '#title' => t('Type of text'),
+    '#options' => array(
+      DRUPAL_IPSUM_TYPE_WORD => t('Words'),
+      DRUPAL_IPSUM_TYPE_SENTENCE => t('Sentences'),
+      DRUPAL_IPSUM_TYPE_PARAGRAPH => t('Paragraphs'),
+    ),
+    '#default_value' => DRUPAL_IPSUM_TYPE_PARAGRAPH,
+  );
+  
+  $form['drupal_ipsum_text_quantity'] = array(
+    '#type' => 'textfield',
+    '#title' => t('How much text'),
+    '#default_value' => '5',
+  );
+  
+  $form['drupal_ipsum_start'] = array(
+    '#type' => 'radios',
+    '#title' => t('Start with'),
+    '#options' => array(
+      DRUPAL_IPSUM_START_ANY => t('Anything'),
+      DRUPAL_IPSUM_START_LOREM => _drupal_ipsum_defafult_start_lorem() . '&hellip;',
+      DRUPAL_IPSUM_START_DRUPAL => _drupal_ipsum_defafult_start_drupal() . '&hellip;',
+    ),
+    '#default_value' => DRUPAL_IPSUM_START_DRUPAL,
+  );
+  
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Generate!'),
+  );
+  
+  return $form;
+}
+
+/**
+ * Validate callback
+ * 
+ * @see drupal_ipsum_generate_form().
+ */
+function drupal_ipsum_generate_form_validate($form, &$form_state) {
+  if (!is_numeric($form_state['values']['drupal_ipsum_text_quantity'])) {
+    form_set_error('drupal_ipsum_text_quantity', t('Quantity must be numeric!'));
+  }
+}
+
+/**
+ * Submit callback
+ * 
+ * @see drupal_ipsum_generate_form().
+ */
+function drupal_ipsum_generate_form_submit(&$form, &$form_state) {
+  $hash = array(
+    'type' => $form_state['values']['drupal_ipsum_text_type'],
+    'quantity' => $form_state['values']['drupal_ipsum_text_quantity'],
+    'start' => $form_state['values']['drupal_ipsum_start'],
+  );
+  $hash = base64_encode(serialize($hash));
+  
+  drupal_set_message(t('Drupal Ipsum text generated!'));
+  drupal_goto("generate/{$hash}");
+  exit;
+}
+
+/**
+ * Auxiliary function
+ * Returns starting text for "Lorem ipsum" option
+ */
+function _drupal_ipsum_defafult_start_lorem() {
+  return 'Lorem ipsum dolor sit amet';
+}
+
+/**
+ * Auxiliary function
+ * Returns starting text for "Drupal ipsum" option
+ */
+function _drupal_ipsum_defafult_start_drupal() {
+  return 'Drupal ipsum dolor sit modula';
+}
+
+/**
+ * Generates Drupal-flavoured lorem-ipsum text and returns results
+ * This is where the magic happens!
+ * 
+ * @param int $quantity
+ * @param int $type 
+ * @return string
+ */
+function _drupal_ipsum_generate($quantity, $type = DRUPAL_IPSUM_TYPE_PARAGRAPH, $start = DRUPAL_IPSUM_START_DRUPAL) {
+  $startsWith = NULL;
+
+  if ($start == DRUPAL_IPSUM_START_DRUPAL) {
+    $startsWith = _drupal_ipsum_defafult_start_drupal();
+  } elseif ($start == DRUPAL_IPSUM_START_LOREM) {
+    $startsWith = _drupal_ipsum_defafult_start_lorem();
+  }
+  
+  // set Drupal vocabulary
+  $vocabulary = _drupal_ipsum_get_vocabulary();
+  Foo_Ipsum::setVocabulary($vocabulary);
+  
+  switch ($type) {
+    case DRUPAL_IPSUM_TYPE_WORD:
+      $return = Foo_Ipsum::words($quantity, $startsWith);
+      break;
+    case DRUPAL_IPSUM_TYPE_SENTENCE:
+      $return = Foo_Ipsum::sentences($quantity, $startsWith);
+      break;
+    case DRUPAL_IPSUM_TYPE_PARAGRAPH:
+    default:
+      $return = Foo_Ipsum::paragraphs($quantity, TRUE, $startsWith);
+      break;
+  }
+  
+  return $return;
+}
+
+/**
+ * Return array of words to be used in Drupal ipsum text generation
+ * 
+ * @return array
+ */
+function _drupal_ipsum_get_vocabulary() {
+  return array(
+    'drupal',
+    'hook',
+    'module',
+    'theme',
+    'alter',
+    'node',
+    'entity',
+    'comment',
+    'user',
+    'taxonomy',
+    'term',
+    'vocabulary',
+    'content',
+    'type',
+    'permission',
+    'hack',
+    'core',
+    'contrib',
+    'template',
+    'menu',
+    'sites',
+    'profile',
+    'behaviors',
+    'ahah',
+    'ajax',
+    'javascript',
+    'css',
+    'html',
+    'markup',
+    'form',
+    'api',
+    'FAPI',
+    'install',
+    'uninstall',
+    'enable',
+    'disable',
+    'nodeapi',
+    'block',
+    'login',
+    'logout',
+    'help',
+    'password',
+    'documentation',
+    'RTFM',
+    'post',
+    'article',
+    'webform',
+    'captcha',
+    'views',
+    'panels',
+    'context',
+    'ctools',
+    'cck',
+    'features',
+    'cron',
+    'locale',
+    'i18n',
+    'community',
+    'webmaster',
+    'server',
+    'moderate',
+    'planet',
+    'git',
+    'commit',
+    'push',
+    'pull',
+    'issue',
+    'project',
+    'group',
+    'role',
+    'field',
+    'cache',
+    'session',
+    'semaphore',
+    'triage',
+    'freeze',
+    'bug',
+    'major',
+    'minor',
+    'critical',
+    'roadmap',
+    'meta',
+    'profile',
+    'color',
+    'filter',
+    'backup',
+    'migrate',
+    'actions',
+    'rules',
+    'plugin',
+    'layout',
+    'book',
+    'contact',
+    'dashboard',
+    'workbench',
+    'syslog',
+    'trigger',
+    'simpletest',
+    'devel',
+    'generate',
+    'flag',
+    'bundle',
+    'token',
+    'variable',
+    'wysiwyg',
+    'jquery',
+    'html5',
+    'css3',
+    'buzzwords',
+    'scheduler',
+    'date',
+    'calendar',
+    'overlay',
+    'modal',
+  );
+}

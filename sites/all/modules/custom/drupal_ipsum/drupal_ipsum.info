@@ -1,0 +1,7 @@
+core = "7.x"
+description = "Drupal-flavourd lorem ipsum filler text generator"
+name = "Drupal Ipsum"
+package = "Development"
+project = "drupal_ipsum"
+version = "7.x-1.0-dev"
+files[] = "Foo_Ipsum.php"

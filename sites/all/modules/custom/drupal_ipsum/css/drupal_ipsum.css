@@ -1,0 +1,16 @@
+/* @file Drupal Ipsum styles */
+
+textarea.drupal_ipsum_textarea {
+  padding: 10px;
+  border: 0 none;
+  -moz-box-shadow: 1px 1px 4px #ccc;
+  -webkit-box-shadow: 1px 1px 4px #ccc;
+  box-shadow: 1px 1px 4px #ccc;
+  width: 600px;
+  height: 300px;
+  display: none;
+}
+
+a.drupal_ipsum_select {
+  display: block;
+}
