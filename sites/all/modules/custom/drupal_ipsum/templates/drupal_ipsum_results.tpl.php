@@ -6,6 +6,7 @@
  * 
  * Available variables:
  *  - $drupal_ipsum_text string the generated text
+ *  - $drupal_ipsum_form string the markup for the generation form
  */
 ?>
 <div class="drupal_ipsum_results_container">
@@ -16,6 +17,5 @@
 
 <div class="drupal_ipsum_results_form">
   <h2><?php echo t('Want more?'); ?></h2>
-  <?php $form = drupal_get_form('drupal_ipsum_generate_form'); ?>
-  <?php echo drupal_render($form); ?>
+  <?php echo $drupal_ipsum_form; ?>
 </div>

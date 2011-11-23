@@ -59,6 +59,7 @@ function drupal_ipsum_menu() {
     'title' => 'Generate Drupal Ipsum text',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('drupal_ipsum_generate_form'),
+//    'page arguments' => array('drupal_ipsum_generate_form', 5, DRUPAL_IPSUM_TYPE_PARAGRAPH, DRUPAL_IPSUM_START_DRUPAL),
     'access callback' => 'user_access',
     'access arguments' => array('use drupal_ipsum'),
     'menu_name' => 'main-menu',
@@ -85,7 +86,7 @@ function drupal_ipsum_theme($existing, $type, $theme, $path) {
   return array(
     'drupal_ipsum_results' => array(
       'template' => 'templates/drupal_ipsum_results',
-      'variables' => array('drupal_ipsum_text' => NULL),
+      'variables' => array('drupal_ipsum_text' => NULL, 'drupal_ipsum_form' => NULL),
     ),
     'drupal_ipsum_about' => array(
       'template' => 'templates/drupal_ipsum_about',
@@ -108,9 +109,13 @@ function _drupal_ipsum_show_results($hash) {
   }
   
   $text = _drupal_ipsum_generate($quantity, $type, $start);
+  $form = drupal_get_form('drupal_ipsum_generate_form', $quantity, $type, $start);
+  $form = drupal_render($form);
+  
   return array(
     '#theme' => 'drupal_ipsum_results',
     '#drupal_ipsum_text' => $text,
+    '#drupal_ipsum_form' => $form,
   );
 }
 
@@ -119,7 +124,7 @@ function _drupal_ipsum_show_results($hash) {
  * 
  * @see drupal_ipsum_menu().
  */
-function drupal_ipsum_generate_form() {
+function drupal_ipsum_generate_form($form, &$form_state, $quantity = NULL, $type = NULL, $start = NULL) {
   $form = array();
   
   $form['drupal_ipsum_text_type'] = array(
@@ -130,13 +135,13 @@ function drupal_ipsum_generate_form() {
       DRUPAL_IPSUM_TYPE_SENTENCE => t('Sentences'),
       DRUPAL_IPSUM_TYPE_PARAGRAPH => t('Paragraphs'),
     ),
-    '#default_value' => DRUPAL_IPSUM_TYPE_PARAGRAPH,
+    '#default_value' => isset($type) ? $type : DRUPAL_IPSUM_TYPE_PARAGRAPH,
   );
   
   $form['drupal_ipsum_text_quantity'] = array(
     '#type' => 'textfield',
     '#title' => t('How much text'),
-    '#default_value' => '5',
+    '#default_value' => isset($quantity) ? $quantity : 5,
   );
   
   $form['drupal_ipsum_start'] = array(
@@ -147,7 +152,7 @@ function drupal_ipsum_generate_form() {
       DRUPAL_IPSUM_START_LOREM => _drupal_ipsum_defafult_start_lorem() . '&hellip;',
       DRUPAL_IPSUM_START_DRUPAL => _drupal_ipsum_defafult_start_drupal() . '&hellip;',
     ),
-    '#default_value' => DRUPAL_IPSUM_START_DRUPAL,
+    '#default_value' => isset($start) ? $start : DRUPAL_IPSUM_START_DRUPAL,
   );
   
   $form['submit'] = array(
@@ -361,5 +366,11 @@ function _drupal_ipsum_get_vocabulary() {
     'calendar',
     'overlay',
     'modal',
+    'revision',
+    'access',
+    'registry',
+    'router',
+    'link',
+    'alias',
   );
 }
