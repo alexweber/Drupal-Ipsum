@@ -108,7 +108,7 @@ function _drupal_ipsum_show_results($hash) {
     exit;
   }
   
-  $text = _drupal_ipsum_generate($quantity, $type, $start);
+  $text = _drupal_ipsum_generate($quantity, $type, $start); 
   $form = drupal_get_form('drupal_ipsum_generate_form', $quantity, $type, $start);
   $form = drupal_render($form);
   
@@ -187,7 +187,20 @@ function drupal_ipsum_generate_form_submit(&$form, &$form_state) {
   );
   $hash = base64_encode(serialize($hash));
   
-  drupal_set_message(t('Drupal Ipsum text generated!'));
+  // @TODO use format_plural, this is just silly
+  $summary = t('Generated @num', array('@num' => $form_state['values']['drupal_ipsum_text_quantity']));
+
+  if ($form_state['values']['drupal_ipsum_text_type'] == DRUPAL_IPSUM_TYPE_WORD) {
+    $summary .= ' ' . t('words');
+  } elseif ($form_state['values']['drupal_ipsum_text_type'] == DRUPAL_IPSUM_TYPE_SENTENCE) {
+    $summary .= ' ' . t('sentences');
+  } elseif ($form_state['values']['drupal_ipsum_text_type'] == DRUPAL_IPSUM_TYPE_PARAGRAPH) {
+    $summary .= ' ' . t('paragraphs');
+  }
+  
+  $summary .= ' ' . t('of Drupal Ipsum filler text!');
+  
+  drupal_set_message($summary);
   drupal_goto("generate/{$hash}");
   exit;
 }
