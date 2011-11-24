@@ -116,11 +116,21 @@
 
     <div id="footer-wrapper"><div class="section">
 
-        <?php if ($page['footer']): ?>
-          <div id="footer" class="clearfix">
+
+        <div id="footer" class="clearfix">
+          <?php if ($page['footer']): ?>
             <?php print render($page['footer']); ?>
-          </div> <!-- /#footer -->
-        <?php endif; ?>
+          <?php endif; ?>
+
+          <div id="block-system-powered-by" class="block block-system block-even">
+            <div class="content">
+              <span>Powered by <a href="http://drupal.org">Drupal</a></span>
+              | Drupal Ipsum is brought to you by <a href="http://www.alexweber.com.br" target="_blank" rel="follow" title="Alex Weber">Alex Weber</a> of <a href="http://webdrop.net.br" title="Webdrop" target="_blank" rel="follow">Webdrop</a>
+            </div><!-- /.content -->
+          </div><!-- /.block -->
+
+        </div> <!-- /#footer -->
+
 
       </div></div> <!-- /.section, /#footer-wrapper -->
 
@@ -128,15 +138,15 @@
 
 <!-- Sharing Widgets -->
 <script type="text/javascript">
-<!--//--><![CDATA[//><!--
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-//--><!]]>
+  <!--//--><![CDATA[//><!--
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  //--><!]]>
 </script>
 <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 <script type="text/javascript" src="http://platform.linkedin.com/in.js"></script>
