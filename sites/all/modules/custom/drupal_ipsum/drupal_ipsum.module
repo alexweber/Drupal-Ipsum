@@ -19,16 +19,6 @@ define('DRUPAL_IPSUM_START_LOREM', 1);
 define('DRUPAL_IPSUM_START_DRUPAL', 2);
 
 /**
- * Implements hook_init().
- */
-function drupal_ipsum_init() {
-  // ideally we would add the includes only on the results page but since this is a small site
-  // we can benefit from having just one css file to cache with no conditions
-  drupal_add_css(drupal_get_path('module', 'drupal_ipsum') . '/css/drupal_ipsum.css');
-  drupal_add_js(drupal_get_path('module', 'drupal_ipsum') . '/js/drupal_ipsum.js');
-}
-
-/**
  * Implements hook_permission().
  */
 function drupal_ipsum_permission() {
@@ -45,21 +35,11 @@ function drupal_ipsum_permission() {
  */
 function drupal_ipsum_menu() {
   $items = array();
-
-  $items['about'] = array(
-    'title' => 'About Drupal Ipsum',
-    'page callback' => 'theme',
-    'page arguments' => array('drupal_ipsum_about'),
-    'access arguments' => array('access content'),
-    'menu_name' => 'main-menu',
-    'weight' => 1,
-  );
   
   $items['generate'] = array(
     'title' => 'Generate Drupal Ipsum text',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('drupal_ipsum_generate_form'),
-//    'page arguments' => array('drupal_ipsum_generate_form', 5, DRUPAL_IPSUM_TYPE_PARAGRAPH, DRUPAL_IPSUM_START_DRUPAL),
     'access callback' => 'user_access',
     'access arguments' => array('use drupal_ipsum'),
     'menu_name' => 'main-menu',
@@ -75,7 +55,6 @@ function drupal_ipsum_menu() {
     'type' => MENU_CALLBACK,
   );
 
-
   return $items;
 }
 
@@ -87,9 +66,6 @@ function drupal_ipsum_theme($existing, $type, $theme, $path) {
     'drupal_ipsum_results' => array(
       'template' => 'templates/drupal_ipsum_results',
       'variables' => array('drupal_ipsum_text' => NULL, 'drupal_ipsum_form' => NULL),
-    ),
-    'drupal_ipsum_about' => array(
-      'template' => 'templates/drupal_ipsum_about',
     ),
   );
 }
@@ -155,12 +131,25 @@ function drupal_ipsum_generate_form($form, &$form_state, $quantity = NULL, $type
     '#default_value' => isset($start) ? $start : DRUPAL_IPSUM_START_DRUPAL,
   );
   
+  $form['#after_build'][] = 'drupal_ipsum_generate_form_after_build';
+  
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Generate!'),
   );
   
   return $form;
+}
+
+/**
+ * After build callback
+ * 
+ * @see drupal_ipsum_generate_form().
+ */
+function drupal_ipsum_generate_form_after_build($element) {
+  drupal_add_css(drupal_get_path('module', 'drupal_ipsum') . '/css/drupal_ipsum.css');
+  drupal_add_js(drupal_get_path('module', 'drupal_ipsum') . '/js/drupal_ipsum.js');
+  return $element;
 }
 
 /**
