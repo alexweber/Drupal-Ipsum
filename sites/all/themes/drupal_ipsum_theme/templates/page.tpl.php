@@ -62,7 +62,7 @@
 
         <div class="drupal_ipsum_share_links">
           <span class="easy_social-widget easy_social-widget-facebook"><div class="fb-like" data-href="http://drupal-ipsum.com" data-send="false" data-layout="box_count" data-width="48" data-show-faces="true" data-action="like" data-colorscheme="light" data-font=""></div></span>
-          <span class="easy_social-widget easy_social-widget-twitter"><a href="http://twitter.com/share" class="twitter-share-button" data-url="http://drupal-ipsum.com" data-count="vertical"data-lang = "en"data-via="alexweber15" data-related="webdropbr:Webdrop are Drupal Specialists in Brazil" data-text="Drupal Ipsum: Drupal-flavoured lorem ipsum filler text generator">Tweet</a></span>
+          <span class="easy_social-widget easy_social-widget-twitter"><a href="http://twitter.com/share" class="twitter-share-button" data-url="http://drupal-ipsum.com" data-count="vertical"data-lang = "en"data-via="alexweber15" data-related="webdropbr:Webdrop are Drupal Specialists in Brazil" data-text="Drupal Ipsum: Drupal-flavoured lorem ipsum filler text generator #drupal">Tweet</a></span>
           <span class="easy_social-widget easy_social-widget-googleplus"><div class="g-plusone" data-size="tall" data-annotation="bubble" data-href="http://drupal-ipsum.com"></div></span>
           <span class="easy_social-widget easy_social-widget-linkedin"><script type="in/share" data-url="http://drupal-ipsum.com" data-counter="top"></script></span>
         </div>
