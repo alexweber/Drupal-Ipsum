@@ -14,6 +14,6 @@ Drupal Ipsum is available as a Drupal module
 
 ## License
 
-Drupal Ipsum (the module) is distributed under the terms of the [GNU General Public License](http://www.gnu.org/licenses/gpl-3.0.html).
+Drupal Ipsum (the module) is distributed under the terms of the [GNU public license, version 2](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html).
 
 Copyright (c) 2011 [Alex Weber](http://alexweber.com.br)

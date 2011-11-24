@@ -3,24 +3,6 @@
 /**
  * This file is part of Foo Framework.
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.
- * It is also available through the world-wide-web at this URL:
- * http://foo-project.org/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@foo-project.org so we can send you a copy immediately.
- *
- * @category Foo
- * @package Utils
- * @copyright Copyright (c) 2009-2010, Alex Weber
- * @license http://foo-project.org/license/new-bsd  New BSD License
- * @link http://foo-project.org
- * @since 0.3
- * @version 0.3
- *
  * $Id: Ipsum.php 457 2010-06-13 01:37:05Z alex $
  */
 
@@ -28,9 +10,7 @@
  * Foo_Ipsum
  *
  * @author Alex Weber <alex@alexweber.com.br>
- * @author Odlanier Mendes <master_odlanier@hotmail.com>
  * @copyright Copyright (c) 2009-2010, Alex Weber
- * @license http://foo-project.org/license/new-bsd  New BSD License
  */
 class Foo_Ipsum {
 
