@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file Drupal Ipsum Site module
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function drupal_ipsum_site_menu() {
+  $items = array();
+
+  $items['about'] = array(
+    'title' => 'About Drupal Ipsum',
+    'page callback' => 'theme',
+    'page arguments' => array('drupal_ipsum_site_about'),
+    'access arguments' => array('access content'),
+    'menu_name' => 'main-menu',
+    'weight' => 1,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function drupal_ipsum_site_theme($existing, $type, $theme, $path) {
+  return array(
+    'drupal_ipsum_site_about' => array(
+      'template' => 'templates/drupal_ipsum_site_about',
+    ),
+  );
+}
