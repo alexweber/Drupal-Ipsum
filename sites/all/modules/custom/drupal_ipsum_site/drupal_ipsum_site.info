@@ -1,6 +1,6 @@
 core = "7.x"
 description = "Drupal Ipsum site module"
-name = "Drupal Ipsum"
+name = "Drupal Ipsum Site"
 package = "Drupal Ipsum"
 project = "drupal_ipsum_site"
 version = "7.x-1.0"
