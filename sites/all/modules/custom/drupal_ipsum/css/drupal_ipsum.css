@@ -14,8 +14,3 @@ textarea.drupal_ipsum_textarea {
 a.drupal_ipsum_select {
   display: block;
 }
-
-/* breadcrumbs are for suckers! */
-#breadcrumb {
-  display: none;
-}
