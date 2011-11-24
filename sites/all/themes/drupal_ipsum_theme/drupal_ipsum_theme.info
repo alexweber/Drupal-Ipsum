@@ -1,0 +1,8 @@
+name = Drupal Ipsum Theme
+description = Bartik Subtheme to add custom code to page.tpl.php
+package = Drupal Ipsum
+version = 7.x-1.0
+core = 7.x
+base theme = "bartik"
+
+stylesheets[all][] = css/drupal_ipsum_theme.css

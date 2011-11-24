@@ -1,0 +1,27 @@
+/* @file Drupal Ipsum Theme styles */
+
+div.drupal_ipsum_share_links {
+  float: right;
+  position: relative;
+  right: 100px;
+  top: 40px;
+}
+
+div.drupal_ipsum_share_links span.easy_social-widget {
+  margin: 0 2px;
+}
+
+div.drupal_ipsum_share_links span.easy_social-widget.easy_social-widget-facebook {
+  margin-left: 0;
+  position: relative;
+  top: -3px;
+}
+
+div.drupal_ipsum_share_links span.easy_social-widget.easy_social-widget-twitter {
+  margin-left: 0;
+}
+
+div.drupal_ipsum_share_links span.easy_social-widget.easy_social-widget-googleplus {
+  position: relative;
+  top: -1px;
+}
