@@ -18,6 +18,6 @@
 
 <h2>Help!</h2>
 
-<p>Did we miss any classic Drupal words? Please let us know! For now we are going to have to ask you to use either one of the contact forms from the afforementioned websites.</p>
+<p>Did we miss any classic Drupal words? Please <a href="/contact" title="Contact Us">let us know!</a></p>
 
 <p>Thanks!</p>

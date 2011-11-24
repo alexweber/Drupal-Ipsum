@@ -18,8 +18,28 @@ function drupal_ipsum_site_menu() {
     'menu_name' => 'main-menu',
     'weight' => 1,
   );
+  
+  // This is necessary because we disabled the MENU module and can only get menu items in using hook_menu
+  $items['contact-drupal-ipsum'] = array(
+    'title' => 'Contact',
+    'page callback' => '_drupal_ipsum_site_contact',
+    'access arguments' => array('access content'),
+    'menu_name' => 'main-menu',
+    'weight' => 2,
+  );
 
   return $items;
+}
+
+/**
+ * Page callback
+ * This is necessary because we disabled the MENU module and can only get menu items in using hook_menu
+ * 
+ * @see drupal_ipsum_site_menu().
+ */
+function _drupal_ipsum_site_contact() {
+  drupal_goto('contact');
+  exit;
 }
 
 /**
