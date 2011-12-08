@@ -124,7 +124,7 @@
 
           <div id="block-system-powered-by" class="block block-system block-even">
             <div class="content">
-              Drupal Ipsum is brought to you by <a href="http://www.alexweber.com.br" target="_blank" rel="follow" title="Alex Weber">Alex</a> of <a href="http://webdrop.net.br" title="Webdrop" target="_blank" rel="follow">Webdrop</a> and is, of course, <span>Powered by <a href="http://drupal.org">Drupal</a></span>
+              Drupal Ipsum is brought to you by <a href="http://www.alexweber.com.br" target="_blank" rel="follow" title="Alex Weber">Alex</a> of <a href="http://webdrop.net.br" title="Webdrop" target="_blank" rel="follow">Webdrop</a> and is, of course, <span>powered by <a href="http://drupal.org">Drupal</a></span>
             </div><!-- /.content -->
           </div><!-- /.block -->
 
