@@ -11,6 +11,10 @@ Drupal Ipsum is available as a Drupal module
 * Requires Drupal 7.0+
 * Download: [http://drupal.org/project/drupal_ipsum](http://drupal.org/project/drupal_ipsum)
 
+## Demo website Readme
+
+This demo-site is peculiar for a number of reasons - apart from showing off the awesome new Drupal Ipsum module, the general idea was to create as minimalistic a Drupal 7 site as possible with as few core modules enabled as possible.
+This was done purely as an experimentation/learning exercise and 0 (zero) pandas were injured in the process.
 
 ## License
 
