@@ -25,3 +25,8 @@ div.drupal_ipsum_share_links span.easy_social-widget.easy_social-widget-googlepl
   position: relative;
   top: -1px;
 }
+
+span.easy_social-widget.easy_social-widget-twitter {
+  position: relative;
+  top: 23px;
+}
