@@ -6,3 +6,5 @@ core = 7.x
 base theme = "bartik"
 
 stylesheets[all][] = css/drupal_ipsum_theme.css
+scripts[] = js/socialite.js
+scripts[] = js/drupal-ipsum.js

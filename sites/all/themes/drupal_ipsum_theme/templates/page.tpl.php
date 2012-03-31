@@ -1,9 +1,8 @@
 <?php
 /**
  * @file Drupal Ipsum page template
- * 
- * This is basically Bartik without regions and with social sharing widgets included
  *
+ * This is basically Bartik without regions and with social sharing widgets included
  */
 ?>
 <div id="page-wrapper"><div id="page">
@@ -61,10 +60,33 @@
         <?php print render($page['header']); ?>
 
         <div class="drupal_ipsum_share_links">
-          <span class="easy_social-widget easy_social-widget-facebook"><div class="fb-like" data-href="http://drupal-ipsum.com" data-send="false" data-layout="box_count" data-width="48" data-show-faces="true" data-action="like" data-colorscheme="light" data-font=""></div></span>
-          <span class="easy_social-widget easy_social-widget-twitter"><a href="http://twitter.com/share" class="twitter-share-button" data-url="http://drupal-ipsum.com" data-count="vertical"data-lang = "en"data-via="alexweber15" data-related="webdropbr:Webdrop are Drupal Specialists in Brazil" data-text="Drupal Ipsum: Drupal-flavoured lorem ipsum filler text generator #drupal">Tweet</a></span>
-          <span class="easy_social-widget easy_social-widget-googleplus"><div class="g-plusone" data-size="tall" data-annotation="bubble" data-href="http://drupal-ipsum.com"></div></span>
-          <span class="easy_social-widget easy_social-widget-linkedin"><script type="in/share" data-url="http://drupal-ipsum.com" data-counter="top"></script></span>
+          <ul id="social" class="cf">
+            <li>
+              <a href="http://twitter.com/share" class="socialite twitter" data-via="alexweber15" data-rel="webdropbr" data-text="Drupal Ipsum" data-url="http://drupal-ipsum.com" data-count="vertical" rel="nofollow" target="_blank">
+                <span>Share on Twitter</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=http://drupal-ipsum.com" class="socialite googleplus" data-size="tall" data-href="http://drupal-ipsum.com" rel="nofollow" target="_blank">
+                <span>Share on Google+</span>
+              </a>
+            </li>
+            <li>
+              <a href="http://www.facebook.com/sharer.php?u=http://drupal-ipsum.com&amp;t=Drupal Ipsum" class="socialite facebook" data-href="http://drupal-ipsum.com" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank">
+                <span>Share on Facebook</span>
+              </a>
+            </li>
+            <li>
+              <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://drupal-ipsum.com&amp;title=Drupal Ipsum" class="socialite linkedin" data-url="http://drupal-ipsum.com" data-counter="top" rel="nofollow" target="_blank">
+                <span>Share on LinkedIn</span>
+              </a>
+            </li>
+            <li>
+              <a href="http://pinterest.com/pin/create/button/?url=http://drupal-ipsum.com/&amp;media=http://drupal-ipsum.com/themes/bartik/logo.png&amp;description=Drupal Ipsum" class="socialite pinit" data-count-layout="vertical">
+                <span>Pin It!</span>
+              </a>
+            </li>
+          </ul>
         </div>
 
         <?php if ($main_menu): ?>
@@ -134,31 +156,3 @@
       </div></div> <!-- /.section, /#footer-wrapper -->
 
   </div></div> <!-- /#page, /#page-wrapper -->
-
-<!-- Sharing Widgets -->
-<script type="text/javascript">
-  <!--//--><![CDATA[//><!--
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-  //--><!]]>
-</script>
-<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-<script type="text/javascript" src="http://platform.linkedin.com/in.js"></script>
-<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-
-<!-- Google Analytics Code -->
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-27242484-1']);
-  _gaq.push(['_trackPageview']);
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
